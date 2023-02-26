@@ -39,6 +39,9 @@
                 <td>{{ $movie->published_year }}</td>
                 <td>{{ $movie->is_showing }}</td>
                 <td>{{ $movie->description }}</td>
+                <td>
+                    <a href="{{ route('admin.movies.edit', $movie->id ) }}">EDIT</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

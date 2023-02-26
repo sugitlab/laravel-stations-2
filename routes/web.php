@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
+use Tests\Feature\LaravelStations\Station10\AdminMovieTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
     Route::get('/movies', [AdminMovieController::class, 'index'])->name('.movies');
     Route::get('/movies/create', [AdminMovieController::class, 'create'])->name('.movies.create');
     Route::post('/movies/store', [AdminMovieController::class, 'store'])->name('.movies.store');
+    Route::get('/movies/{id}/edit', [AdminMovieController::class, 'edit'])->name('.movies.edit');
+    Route::patch('/movies/{id}/update', [AdminMovieController::class, 'update'])->name('.movie.update');
 });
