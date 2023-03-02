@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Practice;
-use App\Movie;
+use App\Models\Movie;
 
 class DatabaseSeeder extends Seeder
 {

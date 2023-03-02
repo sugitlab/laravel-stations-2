@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
-use App\Movie;
+use App\Models\Movie;
 
 class MovieController extends Controller
 {
@@ -25,7 +25,7 @@ class MovieController extends Controller
     public function store(Movie $movie, CreateMovieRequest $request)
     {
         $movie->fill($request->all())->save();
-        return view('admin/movies', ['movies' => Movie::all()]);
+        return redirect(route('admin.movies'));
     }
 
     public function edit(string $id) {
@@ -34,9 +34,14 @@ class MovieController extends Controller
     }
 
     public function update(string $id, UpdateMovieRequest $request) {
-        // TODO: レコード更新処理
         $movie = Movie::query()->where('id', $id)->firstOrFail();
         $movie->fill($request->all())->save();
         return response("{$request->title} : {$id} is updated!!!");
+    }
+
+    public function delete(string $id){
+        Movie::query()->where('id', $id)->delete();
+        // TODO: FlashMessageの対応
+        return redirect(route('admin.movies'));
     }
 }

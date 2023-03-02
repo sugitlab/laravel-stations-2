@@ -21,21 +21,30 @@
         <h2>公開年</h2>
         <input type="number" name="published_year" value="{{ $movie->published_year }}">
         <h2>公開中かどうか</h2>
-        <input type="checkbox" name="is_showing" id="is_showing" value="1" value="{{ $movie->is_showing }}">
-        <label for="is_showing">公開中かどうか</label>
+        <label for="is_showing" class="form-label required">上映中か</label>
+        <select name="is_showing" id="is_showing"
+            class="form-control {{ $errors->first('is_showing') ? 'is-invalid' : '' }}" aria-placeholder="選択してください">
+            @foreach (['上映予定', '上映中'] as $value => $label)
+                <option value="{{ $value }}"
+                    {{ old('is_showing', $movie?->is_showing) === (string) $value ? 'selected' : '' }}>
+                    {{ $label }}</option>
+            @endforeach
+        </select>
+        <div class="invalid-feedback">{{ $errors->first('is_showing') }}</div>
+
         <h2>概要</h2>
         <input type="text" name="description" value="{{ $movie->description }}">
         <br>
         <br>
         <br>
         @if ($errors->any())
-        <div class="alert alert-danger mt-3">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger mt-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <input type="submit">
     </form>
